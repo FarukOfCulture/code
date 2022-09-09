@@ -14,6 +14,7 @@ fn main() {
         .expect("Please insert size as command-line flag")
         .parse()
         .unwrap();
+    assert!(size <= 1000, "Size must be between 1 and 1000");
     let rect_size: u32 = WINDOW_SIZE / size as u32;
     let sdl_context = sdl2::init().unwrap();
     let video_subsystem = sdl_context.video().unwrap();
