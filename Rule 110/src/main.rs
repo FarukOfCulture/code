@@ -14,7 +14,11 @@ fn main() {
         .expect("Please insert size as command-line flag")
         .parse()
         .unwrap();
-    assert!(size <= 1000, "Size must be between 1 and 1000");
+    assert!(
+        1 <= size && size <= WINDOW_SIZE as usize,
+        "Size must be between 1 and 1000"
+    );
+    assert!(1000 % size == 0, "{WINDOW_SIZE} must be divideble by size");
     let rect_size: u32 = WINDOW_SIZE / size as u32;
     let sdl_context = sdl2::init().unwrap();
     let video_subsystem = sdl_context.video().unwrap();
