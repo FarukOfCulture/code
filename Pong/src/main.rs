@@ -8,15 +8,13 @@ use std::time::Duration;
 
 const BG_COLOR: Color = Color::RGB(0x18, 0x18, 0x18);
 const FG_COLOR: Color = Color::RGB(0xff, 0xff, 0xff);
-// const window_width: u32 = 1280;
-// const window_height: u32 = 720;
+const WINDOW_WIDTH: u32 = 1280;
+const WINDOW_HEIGHT: u32 = 720;
 const BALL_SIZE: u32 = 20;
 const SPEED: i32 = 7;
 const PADDLE_THICKNESS: u32 = 15;
 const PADDLE_SIZE: u32 = 100;
 const PADDLE_PADDING: u32 = 20;
-const WINDOW_WIDTH: u32 = 1280;
-const WINDOW_HEIGHT: u32 = 720;
 
 fn main() {
     let sdl_context = sdl2::init().unwrap();
