@@ -8,13 +8,15 @@ use std::time::Duration;
 
 const BG_COLOR: Color = Color::RGB(0x18, 0x18, 0x18);
 const FG_COLOR: Color = Color::RGB(0xff, 0xff, 0xff);
-const WINDOW_WIDTH: u32 = 1280;
-const WINDOW_HEIGHT: u32 = 720;
+// const window_width: u32 = 1280;
+// const window_height: u32 = 720;
 const BALL_SIZE: u32 = 20;
 const SPEED: i32 = 7;
 const PADDLE_THICKNESS: u32 = 15;
 const PADDLE_SIZE: u32 = 100;
 const PADDLE_PADDING: u32 = 20;
+const WINDOW_WIDTH: u32 = 1280;
+const WINDOW_HEIGHT: u32 = 720;
 
 fn main() {
     let sdl_context = sdl2::init().unwrap();
@@ -60,28 +62,7 @@ fn main() {
     let mut ball: Rect = rects[0];
 
     'running: loop {
-        ball.set_x(rects[0].x + balldx * SPEED);
-        if ball.has_intersection(rects[1]) || ball.has_intersection(rects[2]) {
-            balldx *= -1;
-        }
-        if ball.x < 0 || ball.x >= WINDOW_WIDTH as i32 {
-            balldx *= -1;
-            rects[0].x = (WINDOW_WIDTH / 2 - BALL_SIZE / 2) as i32;
-            rects[0].y = (WINDOW_HEIGHT / 2 - BALL_SIZE / 2) as i32;
-        }
-        ball.set_x(rects[0].x);
-        ball.set_y(rects[0].y + balldy * SPEED);
-        if ball.has_intersection(rects[1])
-            || ball.has_intersection(rects[2])
-            || ball.y < 0
-            || ball.y + BALL_SIZE as i32 >= WINDOW_HEIGHT as i32
-        {
-            balldy *= -1
-        }
-
         if !paused {
-            rects[0].set_x(rects[0].x + balldx * SPEED);
-            rects[0].set_y(ball.y);
             if rects[1].y + paddler * SPEED < (WINDOW_HEIGHT - PADDLE_SIZE) as i32
                 && rects[1].y + paddler * SPEED >= 0 as i32
             {
@@ -92,6 +73,28 @@ fn main() {
             {
                 rects[2].set_y(rects[2].y + paddlel * SPEED);
             }
+
+            ball.set_x(rects[0].x + balldx * SPEED);
+            if ball.has_intersection(rects[1]) || ball.has_intersection(rects[2]) {
+                balldx *= -1;
+            }
+            if ball.x < 0 || ball.x >= WINDOW_WIDTH as i32 {
+                balldx *= -1;
+                rects[0].x = (WINDOW_WIDTH / 2 - BALL_SIZE / 2) as i32;
+                rects[0].y = (WINDOW_HEIGHT / 2 - BALL_SIZE / 2) as i32;
+            }
+            ball.set_x(rects[0].x);
+            ball.set_y(rects[0].y + balldy * SPEED);
+            if ball.has_intersection(rects[1])
+                || ball.has_intersection(rects[2])
+                || ball.y < 0
+                || ball.y + BALL_SIZE as i32 >= WINDOW_HEIGHT as i32
+            {
+                balldy *= -1
+            }
+
+            rects[0].set_x(rects[0].x + balldx * SPEED);
+            rects[0].set_y(ball.y);
         }
 
         canvas.set_draw_color(BG_COLOR);
