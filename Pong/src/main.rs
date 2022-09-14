@@ -23,7 +23,7 @@ fn main() {
     let mut canvas = sdl_context
         .video()
         .unwrap()
-        .window("Rule 110", WINDOW_WIDTH, WINDOW_HEIGHT)
+        .window("Pong", WINDOW_WIDTH, WINDOW_HEIGHT)
         .position_centered()
         .build()
         .unwrap()

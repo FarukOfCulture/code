@@ -9,7 +9,17 @@ fn op_pop(stack: &mut Vec<u32>, op: &str, c: u32) -> u32 {
 fn main() {
     let file = fs::read_to_string(std::env::args().nth(1).expect("File path must be provided"))
         .expect("Reading file failed");
-    let program = file.split([' ', '\t', '\n']).collect::<Vec<_>>();
+    let program = file.split([' ', '\t', '\n']).collect::<Vec<&str>>();
+
+    let mut block_stack: Vec<usize> = Vec::new();
+    for i in (0..program.len()).rev() {
+        let op = program[i];
+        match op {
+            "else" | "end" => block_stack.push(i),
+            _ => {}
+        }
+    }
+
     let mut i = 0;
     let mut stack: Vec<u32> = Vec::new();
     while i < program.len() {
